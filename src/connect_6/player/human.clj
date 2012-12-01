@@ -8,9 +8,14 @@
            (Integer/parseInt %))
         (.split #"[\s,]+" string))))
 
+(defrecord Play [player moves])
+
+(defn player [board last plays]
+  (game/print-board board)
+  (Play. player 
+         (map
+          (fn [i] (str-to-ints (read-line)))
+          (range plays))))
+
 (defn make-player []
-  (fn [board last plays]
-    (game/print-board board)
-    (map
-     (fn [i] (str-to-ints (read-line)))
-     (range plays))))
+  player)

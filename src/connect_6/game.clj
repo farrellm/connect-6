@@ -12,11 +12,6 @@
 (defn cell-state [board row col]
   (nth (nth board row) col))
 
-(defn win? [board]
-  (def v (range (- (count board) k)))
-  (doseq [row v]
-    (doseq [col v] (win-cell? board row col))))
-
 (defn check-win [board row col drow dcol]
   (let [color (cell-state board row col)]
     (defn check-rest [r c n]
@@ -41,6 +36,11 @@
       (win-down? board row col)
       (win-diag-1? board row col)
       (win-diag-2? board row col)))
+
+(defn win? [board]
+  (def v (range (- (count board) k)))
+  (doseq [row v]
+    (doseq [col v] (win-cell? board row col))))
 
 (defn play-stone [board row col color]
   (if (not (= (cell-state board row col) :empty))

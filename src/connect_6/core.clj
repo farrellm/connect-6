@@ -4,17 +4,20 @@
   (:use [slingshot.slingshot :only [throw+ try+]])
   (:gen-class :main true))
 
-(defrecord Round [board player1 player2])
+(defn play [round plays]
+  (loop [r round
+         n 0]
+    (if (= plays n)
+      r
+      )))
 
-(defn play [board player plays])
+(defn first-round [round]
+  (play (:board round) (:player2 round) 1))
 
-(defn first-round [state]
-  (play (:board state) (:player2 state) 1))
-
-(defn game-loop [state]
-  #(game-loop)
-  (play board player1 2)
-  (play board player2 2)
+(defn game-loop [round]
+  ;#(game-loop)
+  ;(play board player1 2)
+  ;(play board player2 2)
   )
 
 (defn -main []
@@ -22,6 +25,6 @@
 
   (let [s0 {:board (game/make-board 16)
             :player1 (human/make-player)
-            :player1 (human/make-player)}
+            :player2 (human/make-player)}
         s1 (first-round s0)]
     (trampoline game-loop)))
